@@ -2,14 +2,12 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-	entry: './src/index.js', // Elegimos nuestro punto de entrada
+	entry: './src/index.js',
 	output: {
 		path: path.resolve(__dirname, 'dist'),
 		filename: 'bundle.js',
-	}, // Añadimos nuestro punto de salida
-	resolve: {
-		extensions: ['*', '.mjs', '.js', '.svelte'],
-	}, // Añadimos el soporte para las extensiones que utiliza svelte
+		publicPath = './'
+	},
 	module: {
 		rules: [
 			{
@@ -18,15 +16,18 @@ module.exports = {
 				use: {
 					loader: 'babel-loader',
 				},
-			}, // Creamos la regla para nuestros archivos JS
+			},
 			{
 				test: /\.svelte$/,
 				exclude: /node_modules/,
 				use: {
 					loader: 'svelte-loader',
 				},
-			}, // Utilizamos svelte-loader para trabajar con los archivos .svelte
+			},
 		],
+	},
+	resolve: {
+		extensions: ['*', '.mjs', '.js', '.svelte'],
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
@@ -34,5 +35,5 @@ module.exports = {
 			template: './public/index.html',
 			filename: './index.html',
 		}),
-	], // utilizamos este plugin para añadir el recurso compilado al documento HTML
+	],
 };
