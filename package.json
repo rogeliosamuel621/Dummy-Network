@@ -19,5 +19,18 @@
   "bugs": {
     "url": "https://github.com/rogeliosamuel621/Dummy-Social/issues"
   },
-  "homepage": "https://github.com/rogeliosamuel621/Dummy-Social#readme"
+  "homepage": "https://github.com/rogeliosamuel621/Dummy-Social#readme",
+  "dependencies": {
+    "svelte": "^3.31.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.12.11",
+    "babel-loader": "^8.2.2",
+    "html-webpack-plugin": "^4.5.1",
+    "svelte-loader": "^3.0.0",
+    "webpack": "^5.17.0",
+    "webpack-cli": "^4.4.0"
+  }
 }
