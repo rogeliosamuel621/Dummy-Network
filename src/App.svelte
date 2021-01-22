@@ -1,21 +1,25 @@
-// Asignamos la logica de nuestra aplicación
 <script>
-  export let name; // Hacemos referenccia al Prop Name
+	let count = 0;
+
+	function handleClick() {
+		count++;
+	}
 </script>
 
-// Creamos los estilos de la aplicación.
 <style>
-  :global(body) { 
-    background-color: #676778;
-    color: white;
-  }
-  .main {
-    display: flex;
-    justify-content: center;
-  }
+	div {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	button {
+		border-radius: 5px;
+		border: none;
+		background-color: tomato;
+		color: white;
+	}
 </style>
 
-// Llamamos el HTML de nuestro sitio.
-<div class="main">
-  <h1>Hello {name}!</h1>
+<div>
+	<button on:click={handleClick}>times clicked {count}</button>
 </div>
