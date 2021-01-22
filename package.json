@@ -4,7 +4,8 @@
   "description": "A dummy social netwokr in development",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "dev": "webpack serve --content-base ./dist --open chrome"
   },
   "repository": {
     "type": "git",
