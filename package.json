@@ -1,0 +1,23 @@
+{
+  "name": "dummy-social",
+  "version": "0.0.0",
+  "description": "A dummy social netwokr in development",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rogeliosamuel621/Dummy-Social.git"
+  },
+  "keywords": [
+    "frontend",
+    "svelte"
+  ],
+  "author": "rogeliosamuel621 <@rogeliosamuel21>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rogeliosamuel621/Dummy-Social/issues"
+  },
+  "homepage": "https://github.com/rogeliosamuel621/Dummy-Social#readme"
+}
