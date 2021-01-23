@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/rogeliosamuel621/Dummy-Social#readme",
   "dependencies": {
+    "dotenv-webpack": "^6.0.0",
     "svelte": "^3.31.2"
   },
   "devDependencies": {

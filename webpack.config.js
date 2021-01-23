@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
 	mode: 'development',
@@ -8,7 +9,7 @@ module.exports = {
 	output: {
 		path: path.resolve(__dirname, 'dist'),
 		filename: 'bundle.js',
-		publicPath: '/',
+		publicPath: './',
 	},
 	module: {
 		rules: [
@@ -37,13 +38,10 @@ module.exports = {
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
-			inject: true,
-			template: './public/index.html',
-			filename: './index.html',
+			template: path.resolve(__dirname, 'public/index.html'),
 		}),
-		new MiniCssExtractPlugin({
-			filename: 'styles.css',
-		}),
+		new MiniCssExtractPlugin(),
+		new Dotenv(),
 	],
 	devServer: {
 		historyApiFallback: true,

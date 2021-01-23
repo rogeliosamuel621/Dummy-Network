@@ -4,6 +4,7 @@
 	function handleClick() {
 		count++;
 	}
+	console.log(process.env.VAR);
 </script>
 
 <style>
