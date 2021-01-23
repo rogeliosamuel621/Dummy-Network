@@ -22,5 +22,5 @@
 </style>
 
 <div>
-	<button on:click={handleClick}>times clicked {count}</button>
+	<button on:click={handleClick}>timesss clicked {count}</button>
 </div>

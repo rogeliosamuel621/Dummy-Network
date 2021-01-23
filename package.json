@@ -4,8 +4,9 @@
   "description": "A dummy social netwokr in development",
   "main": "index.js",
   "scripts": {
+    "start": "http-server ./dist/ --cors -o -c-1 --proxy",
     "build": "webpack --mode production",
-    "dev": "webpack serve --content-base ./dist --open chrome"
+    "dev": "webpack serve --open chrome"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,7 @@
     "babel-loader": "^8.2.2",
     "css-loader": "^5.0.1",
     "html-webpack-plugin": "^4.5.1",
+    "http-server": "^0.12.3",
     "mini-css-extract-plugin": "^1.3.4",
     "svelte-loader": "^3.0.0",
     "webpack": "^5.17.0",
