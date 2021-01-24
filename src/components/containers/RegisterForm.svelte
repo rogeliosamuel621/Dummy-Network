@@ -1,6 +1,7 @@
 <script>
 	import { link } from 'svelte-routing';
 	import Input from '../molecules/Input.svelte';
+	import InputPass from '../molecules/InputPass.svelte';
 	let username = '';
 	let email = '';
 	let password = '';
@@ -67,12 +68,7 @@
 			label="Email"
 			typeInput="email"
 		/>
-		<Input
-			currentValue="{password}"
-			forInput="password"
-			label="Password"
-			typeInput="password"
-		/>
+		<InputPass currentValue="{password}" forInput="password" label="Password" />
 		<div>
 			<input type="submit" value="Register" />
 		</div>
