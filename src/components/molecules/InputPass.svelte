@@ -48,16 +48,21 @@
 		transition: 0.25s;
 		border: 1px solid #0779e4;
 	}
+	label div div p {
+		font-size: 1.4rem;
+		color: white;
+		margin: 0;
+		margin-right: 5px;
+	}
 </style>
 
 <label for="{forInput}">
 	<div>
 		<span>{label}</span>
-		<img
-			on:click="{handleChangeType}"
-			src="{isHide ? EyeOnIcon : EyeOffIcon}"
-			alt="Eye icon"
-		/>
+		<div on:click="{handleChangeType}">
+			<p>{isHide ? 'Show' : 'Hide'}</p>
+			<img src="{isHide ? EyeOnIcon : EyeOffIcon}" alt="Eye icon" />
+		</div>
 	</div>
 	<input
 		type="password"
