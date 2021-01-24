@@ -1,8 +1,8 @@
 <script>
 	import { Router, Route } from 'svelte-routing';
-	import Main from './components/pages/Main.svelte';
+	import Landing from './components/pages/Landing.svelte';
 </script>
 
 <Router>
-	<Route path="/" component={Main} />
+	<Route path="/" component={Landing} />
 </Router>
