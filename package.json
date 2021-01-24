@@ -26,7 +26,8 @@
   "homepage": "https://github.com/rogeliosamuel621/Dummy-Social#readme",
   "dependencies": {
     "dotenv-webpack": "^6.0.0",
-    "svelte": "^3.31.2"
+    "svelte": "^3.31.2",
+    "svelte-routing": "^1.5.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",

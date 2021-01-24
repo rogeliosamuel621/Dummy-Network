@@ -22,7 +22,6 @@ module.exports = {
 			},
 			{
 				test: /\.svelte$/,
-				exclude: /node_modules/,
 				use: {
 					loader: 'svelte-loader',
 				},
@@ -34,7 +33,7 @@ module.exports = {
 		],
 	},
 	resolve: {
-		extensions: ['*', '.mjs', '.js', '.svelte'],
+		extensions: ['.mjs', '.js', '.svelte'],
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
