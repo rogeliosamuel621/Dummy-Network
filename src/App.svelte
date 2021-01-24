@@ -4,5 +4,5 @@
 </script>
 
 <Router>
-	<Route path="/" component={Landing} />
+	<Route path="/" component="{Landing}" />
 </Router>
