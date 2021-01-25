@@ -1,10 +1,21 @@
 <script>
-	import { link } from 'svelte-routing';
+	import { link, navigate } from 'svelte-routing';
 	import Input from '../molecules/Input.svelte';
 	import InputPass from '../molecules/InputPass.svelte';
 	let username = '';
 	let email = '';
 	let password = '';
+
+	function register(e) {
+		e.preventDefault();
+		console.log(username, email, password);
+
+		if (password.length < 6) {
+			alert('Password must have at least 6 characters');
+			return;
+		}
+		navigate('/home');
+	}
 </script>
 
 <style>
@@ -55,20 +66,27 @@
 
 <main>
 	<h1>Register</h1>
-	<form action="">
+	<form on:submit="{register}">
 		<Input
+			setCurrentValue="{(value) => (username = value)}"
 			currentValue="{username}"
 			forInput="username"
 			label="Username"
 			typeInput="text"
 		/>
 		<Input
+			setCurrentValue="{(value) => (email = value)}"
 			currentValue="{email}"
 			forInput="email"
 			label="Email"
 			typeInput="email"
 		/>
-		<InputPass currentValue="{password}" forInput="password" label="Password" />
+		<InputPass
+			setCurrentValue="{(value) => (password = value)}"
+			currentValue="{password}"
+			forInput="password"
+			label="Password"
+		/>
 		<div>
 			<input type="submit" value="Register" />
 		</div>

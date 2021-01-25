@@ -6,6 +6,9 @@
 	export let forInput;
 	export let currentValue;
 	export let placeholder;
+	export let setCurrentValue;
+
+	$: setCurrentValue(currentValue);
 
 	let isHide = true;
 

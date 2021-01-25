@@ -3,7 +3,10 @@
 	export let forInput;
 	export let typeInput = 'text';
 	export let currentValue;
+	export let setCurrentValue;
 	export let placeholder;
+
+	$: setCurrentValue(currentValue);
 
 	function handleTypeInput(e) {
 		e.target.type = typeInput;
@@ -43,5 +46,6 @@
 		placeholder="{placeholder}"
 		bind:value="{currentValue}"
 		on:input="{handleTypeInput}"
+		required
 	/>
 </label>
