@@ -2,6 +2,8 @@
 	import { link, navigate } from 'svelte-routing';
 	import Input from '../molecules/Input.svelte';
 	import InputPass from '../molecules/InputPass.svelte';
+	import isAuthenticated from '../../store/auth';
+
 	let username = '';
 	let email = '';
 	let password = '';
@@ -14,6 +16,7 @@
 			alert('Password must have at least 6 characters');
 			return;
 		}
+		isAuthenticated.set(true);
 		navigate('/home');
 	}
 </script>
