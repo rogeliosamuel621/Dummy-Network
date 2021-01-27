@@ -4,7 +4,7 @@
   "description": "a dummy social network",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "lerna run build" 
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/rogeliosamuel621/Dummy-Social/issues"
   },
-  "homepage": "https://github.com/rogeliosamuel621/Dummy-Social#readme"
+  "homepage": "https://github.com/rogeliosamuel621/Dummy-Social#readme",
+  "devDependencies": {
+    "lerna": "^3.22.1"
+  }
 }
