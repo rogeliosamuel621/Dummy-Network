@@ -4,7 +4,7 @@
   "description": "a dummy social network",
   "main": "index.js",
   "scripts": {
-    "build": "lerna run build" 
+    "build": "lerna run build"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,14 @@
   },
   "homepage": "https://github.com/rogeliosamuel621/Dummy-Social#readme",
   "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "husky": "^4.3.8",
     "lerna": "^3.22.1"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }
