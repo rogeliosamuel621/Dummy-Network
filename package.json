@@ -4,7 +4,9 @@
   "description": "a dummy social network",
   "main": "index.js",
   "scripts": {
-    "build": "lerna run build"
+    "build:app": "lerna run build",
+    "start:app": "lerna run start",
+    "dev:app": "lerna run dev"
   },
   "repository": {
     "type": "git",
