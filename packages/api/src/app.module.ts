@@ -1,9 +1,14 @@
 import { Module } from '@nestjs/common';
-import { CatModule } from './cats/cats.module';
 import { UserModule } from './user/user.module';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
-	imports: [UserModule, CatModule],
+	imports: [
+		MongooseModule.forRoot('mongodb://localhost/nest', {
+			useCreateIndex: true,
+		}),
+		UserModule,
+	],
 	controllers: [],
 	providers: [],
 })
