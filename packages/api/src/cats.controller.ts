@@ -1,17 +1,24 @@
-import { Controller, Get, Req } from '@nestjs/common';
+import { Controller, Get, Req, Body, Post, HttpCode } from '@nestjs/common';
 import { Request } from 'express';
+import { CatServices } from './cats.service';
+import { ICats, Cats } from './cats';
 
 @Controller('cats')
 export class CatsController {
-  @Get('all')
-  getAll(@Req() req: Request): string {
-    console.log(req.body);
+  constructor(private catService: CatServices) {}
 
-    return 'All cats';
+  @Get('all')
+  getAll(): ICats[] {
+    return this.catService.getAllCats();
   }
 
   @Get('one')
-  getOne(): string {
-    return 'one cat';
+  getOne(@Body() body: { id: number }): ICats {
+    return this.catService.getOneCat(body.id);
+  }
+
+  @Post('create')
+  create(@Body() createCatDto: ICats): void {
+    this.catService.createCat(createCatDto);
   }
 }
