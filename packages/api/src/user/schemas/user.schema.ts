@@ -1,8 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 
+<<<<<<< HEAD
 export type UserDocument = User & mongoose.Document;
 
+=======
+>>>>>>> bcaa6ca82c8fe33b84ae98edac0135861a1086eb
 @Schema()
 export class User {
 	@Prop({ required: true, maxlength: 33 })

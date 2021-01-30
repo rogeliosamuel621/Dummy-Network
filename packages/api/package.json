@@ -24,9 +24,12 @@
     "@nestjs/core": "^7.6.7",
     "@nestjs/mongoose": "^7.2.2",
     "@nestjs/platform-express": "^7.6.7",
+<<<<<<< HEAD
     "argon2": "^0.27.1",
     "class-transformer": "^0.3.2",
     "class-validator": "^0.13.1",
+=======
+>>>>>>> bcaa6ca82c8fe33b84ae98edac0135861a1086eb
     "mongoose": "^5.11.14",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2"
