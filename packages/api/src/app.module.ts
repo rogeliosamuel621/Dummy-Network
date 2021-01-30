@@ -4,7 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
 	imports: [
-		MongooseModule.forRoot('mongodb://localhost/dummy-social', {
+		MongooseModule.forRoot('mongodb://localhost/dummy-network', {
 			useCreateIndex: true,
 		}),
 		UserModule,

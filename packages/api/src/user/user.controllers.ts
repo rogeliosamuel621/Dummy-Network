@@ -7,11 +7,11 @@ export class UserController {
 	constructor(private userServices: UserService) {}
 
 	@Post('register')
-	register(
+	async register(
 		@Body() registerUserDto: RegisterUserDto,
 		@Res() res: Response
-	): Response {
-		const response: string = this.userServices.register(registerUserDto);
-		return res.json(response);
+	): Promise<Response> {
+		const msg: string = await this.userServices.register(registerUserDto);
+		return res.json(msg);
 	}
 }
