@@ -53,7 +53,7 @@
       "json",
       "ts"
     ],
-    "rootDir": "./__tests__",
+    "rootDir": "src",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },

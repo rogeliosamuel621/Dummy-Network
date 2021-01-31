@@ -15,6 +15,7 @@ export class UserService {
 				type: argon.argon2i,
 			});
 			user.password = hash;
+			console.log('he');
 
 			const newUser = new this.userModel(user);
 			await newUser.save();
