@@ -1,10 +1,9 @@
 import * as req from 'supertest';
 import { Test } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
-import { UserModule } from '../user.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { RegisterUserDto } from '../dto/user.dto';
 import { RemoveRegisteredUser, FakeUser } from './user.utils';
+import { AppModule } from '../../app.module';
 
 describe('Users', () => {
 	let app: INestApplication;
@@ -15,7 +14,7 @@ describe('Users', () => {
 				MongooseModule.forRoot('mongodb://localhost/dummy-network', {
 					useCreateIndex: true,
 				}),
-				UserModule,
+				AppModule,
 			],
 		}).compile();
 
