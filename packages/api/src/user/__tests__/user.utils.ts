@@ -14,7 +14,9 @@ class FakeUser {
 
 let mongod: MongoMemoryServer;
 
-export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) =>
+export const rootMongooseTestModule = (
+	options: MongooseModuleOptions = { useCreateIndex: true }
+) =>
 	MongooseModule.forRootAsync({
 		useFactory: async () => {
 			mongod = new MongoMemoryServer();
