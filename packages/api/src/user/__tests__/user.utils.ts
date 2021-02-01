@@ -1,20 +1,9 @@
 import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 
-class FakeUser {
-	email: string;
-	username: string;
-	password: string;
-	constructor(email: string, username: string, password: string) {
-		this.email = email;
-		this.username = username;
-		this.password = password;
-	}
-}
-
 let mongod: MongoMemoryServer;
 
-export const rootMongooseTestModule = (
+const rootMongooseTestModule = (
 	options: MongooseModuleOptions = { useCreateIndex: true }
 ) =>
 	MongooseModule.forRootAsync({
@@ -28,8 +17,19 @@ export const rootMongooseTestModule = (
 		},
 	});
 
-export const closeInMongodConnection = async () => {
+const closeInMongodConnection = async () => {
 	if (mongod) await mongod.stop();
 };
 
-export { FakeUser };
+class FakeUser {
+	email: string;
+	username: string;
+	password: string;
+	constructor(email: string, username: string, password: string) {
+		this.email = email;
+		this.username = username;
+		this.password = password;
+	}
+}
+
+export { FakeUser, closeInMongodConnection, rootMongooseTestModule };

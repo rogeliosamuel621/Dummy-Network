@@ -6,12 +6,11 @@ import {
 	closeInMongodConnection,
 	rootMongooseTestModule,
 } from './user.utils';
-import { AppModule } from '../../app.module';
 import { UserModule } from '../user.module';
 import { ValidationPipe } from '@nestjs/common';
 import { validationPipesOptions } from '../../utils/validationPipesOptions';
 
-describe('Users', () => {
+describe('Register endpoint', () => {
 	let app: INestApplication;
 
 	beforeAll(async () => {
@@ -28,8 +27,8 @@ describe('Users', () => {
 		await app.close();
 	});
 
-	test('/POST register, WRONG DATA SCHEMA', async () => {
-		const mockUser = new FakeUser('adminTestgmail.com', 'admin test', '123456');
+	test('WRONG DATA SCHEMA', async () => {
+		const mockUser = new FakeUser('admingmail.com', 'admin', '123456');
 
 		const res = await req(app.getHttpServer())
 			.post('/user/register')
@@ -37,16 +36,12 @@ describe('Users', () => {
 
 		expect(res.status).toBe(400);
 		expect(res.body.message).toContain(
-			'the [email] is not an email, [adminTestgmail.com]'
+			'the [email] is not an email, [admingmail.com]'
 		);
 	});
 
-	test('/POST register, OK', async () => {
-		const mockUser = new FakeUser(
-			'adminTest@gmail.com',
-			'admin test',
-			'123456'
-		);
+	test('OK', async () => {
+		const mockUser = new FakeUser('admin@gmail.com', 'admin', '123456');
 
 		const res = await req(app.getHttpServer())
 			.post('/user/register')
@@ -56,12 +51,8 @@ describe('Users', () => {
 		expect(res.body.msg).toBe('USER REGISTERED');
 	});
 
-	test('/POST register, EMAIL ALREADY TAKEN', async () => {
-		const mockUser = new FakeUser(
-			'adminTest@gmail.com',
-			'admin test',
-			'123456'
-		);
+	test('EMAIL ALREADY TAKEN', async () => {
+		const mockUser = new FakeUser('admin@gmail.com', 'admin', '123456');
 
 		const res = await req(app.getHttpServer())
 			.post('/user/register')
