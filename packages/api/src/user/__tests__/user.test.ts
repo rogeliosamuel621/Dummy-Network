@@ -7,16 +7,20 @@ import {
 	rootMongooseTestModule,
 } from './user.utils';
 import { AppModule } from '../../app.module';
+import { UserModule } from '../user.module';
+import { ValidationPipe } from '@nestjs/common';
+import { validationPipesOptions } from '../../utils/validationPipesOptions';
 
 describe('Users', () => {
 	let app: INestApplication;
 
 	beforeAll(async () => {
 		const moduleRef = await Test.createTestingModule({
-			imports: [rootMongooseTestModule(), AppModule],
+			imports: [rootMongooseTestModule(), UserModule],
 		}).compile();
 
 		app = moduleRef.createNestApplication();
+		app.useGlobalPipes(new ValidationPipe(validationPipesOptions));
 		await app.init();
 	});
 	afterAll(async () => {
@@ -24,7 +28,7 @@ describe('Users', () => {
 		await app.close();
 	});
 
-	test('/POST register', async () => {
+	test('/POST register, WRONG DATA SCHEMA', async () => {
 		const mockUser = new FakeUser('adminTestgmail.com', 'admin test', '123456');
 
 		const res = await req(app.getHttpServer())
@@ -32,9 +36,12 @@ describe('Users', () => {
 			.send(mockUser);
 
 		expect(res.status).toBe(400);
+		expect(res.body.message).toContain(
+			'the [email] is not an email, [adminTestgmail.com]'
+		);
 	});
 
-	test('/POST register', async () => {
+	test('/POST register, OK', async () => {
 		const mockUser = new FakeUser(
 			'adminTest@gmail.com',
 			'admin test',
@@ -46,5 +53,21 @@ describe('Users', () => {
 			.send(mockUser);
 
 		expect(res.status).toBe(201);
+		expect(res.body.msg).toBe('USER REGISTERED');
+	});
+
+	test('/POST register, EMAIL ALREADY TAKEN', async () => {
+		const mockUser = new FakeUser(
+			'adminTest@gmail.com',
+			'admin test',
+			'123456'
+		);
+
+		const res = await req(app.getHttpServer())
+			.post('/user/register')
+			.send(mockUser);
+
+		expect(res.status).toBe(400);
+		expect(res.body.msg).toBe('EMAIL ALREADY TAKEN');
 	});
 });
