@@ -26,9 +26,15 @@ export class UserService {
 			return { err: null, id: newUser._id };
 		} catch (e) {
 			if (e.code === 11000) {
-				return { err: 'EMAIL ALREADY TAKEN', id: null };
+				return {
+					err: { msg: 'EMAIL ALREADY TAKEN', statusCode: 400 },
+					id: null,
+				};
 			}
-			return { err: 'SOMETHING WERE WRONG', id: null };
+			return {
+				err: { msg: 'SOMETHING WERE WRONG', statusCode: 500 },
+				id: null,
+			};
 		}
 	}
 }

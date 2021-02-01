@@ -1,5 +1,5 @@
 import { IPayload } from './jwt.interfaces';
 
 export interface IDataForToken extends IPayload {
-	err?: string;
+	err?: { msg: string; statusCode: number };
 }
