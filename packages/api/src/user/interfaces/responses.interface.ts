@@ -1,5 +1,5 @@
-export interface IResponse {
-	msg: string;
-	statusCode: number;
-	data?: any;
+import { IPayload } from './jwt.interfaces';
+
+export interface IDataForToken extends IPayload {
+	err?: string;
 }
