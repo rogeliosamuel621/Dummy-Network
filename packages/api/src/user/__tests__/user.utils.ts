@@ -1,5 +1,5 @@
-import { Model } from 'mongoose';
-import { UserDocument } from '../schemas/user.schema';
+import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
+import { MongoMemoryServer } from 'mongodb-memory-server';
 
 class FakeUser {
 	email: string;
@@ -12,10 +12,22 @@ class FakeUser {
 	}
 }
 
-async function RemoveRegisteredUser() {
-	let User: Model<UserDocument>;
+let mongod: MongoMemoryServer;
 
-	await User.findOneAndRemove({ email: 'adminTest@gmail.com' });
-}
+export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) =>
+	MongooseModule.forRootAsync({
+		useFactory: async () => {
+			mongod = new MongoMemoryServer();
+			const mongoUri = await mongod.getUri();
+			return {
+				uri: mongoUri,
+				...options,
+			};
+		},
+	});
 
-export { RemoveRegisteredUser, FakeUser };
+export const closeInMongodConnection = async () => {
+	if (mongod) await mongod.stop();
+};
+
+export { FakeUser };

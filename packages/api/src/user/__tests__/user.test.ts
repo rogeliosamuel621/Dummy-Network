@@ -2,7 +2,7 @@ import * as req from 'supertest';
 import { Test } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { RemoveRegisteredUser, FakeUser } from './user.utils';
+import { FakeUser } from './user.utils';
 import { AppModule } from '../../app.module';
 
 describe('Users', () => {
@@ -23,7 +23,6 @@ describe('Users', () => {
 	});
 	afterAll(async () => {
 		await app.close();
-		await RemoveRegisteredUser();
 	});
 
 	test('/POST register', async () => {
