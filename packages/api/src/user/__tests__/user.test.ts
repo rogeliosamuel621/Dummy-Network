@@ -1,15 +1,13 @@
 import * as req from 'supertest';
 import { Test } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
-import { UserModule } from './user.module';
+import { UserModule } from '../user.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { User, UserSchema } from './schemas/user.schema';
-import { UserService } from './user.services';
-import { RegisterUserDto } from './dto/user.dto';
+import { RegisterUserDto } from '../dto/user.dto';
+import { RemoveRegisteredUser, FakeUser } from './user.utils';
 
 describe('Users', () => {
 	let app: INestApplication;
-	let userServices: UserService;
 
 	beforeAll(async () => {
 		const moduleRef = await Test.createTestingModule({
@@ -19,30 +17,27 @@ describe('Users', () => {
 				}),
 				UserModule,
 			],
-		})
-			.overrideProvider(UserService)
-			.useValue(userServices)
-			.compile();
+		}).compile();
 
 		app = moduleRef.createNestApplication();
 		await app.init();
 	});
+	afterAll(async () => {
+		await app.close();
+		await RemoveRegisteredUser();
+	});
 
 	test('/POST register', async () => {
-		const mockUser: RegisterUserDto = {
-			email: 'adminTest@gmail.com',
-			password: '123456',
-			username: 'admin test',
-		};
+		const mockUser = new FakeUser(
+			'adminTest@gmail.com',
+			'admin test',
+			'123456'
+		);
 
 		const res = await req(app.getHttpServer())
 			.post('/user/register')
 			.send(mockUser);
 
 		expect(res.status).toBe(201);
-	});
-
-	afterAll(async () => {
-		await app.close();
 	});
 });

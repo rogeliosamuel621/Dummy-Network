@@ -59,6 +59,7 @@
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
+    "testPathIgnorePatterns" :["/node_modules/", "user.utils.ts"], 
     "collectCoverageFrom": [
       "**/*.(t|j)s"
     ],
