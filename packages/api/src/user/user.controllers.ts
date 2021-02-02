@@ -1,8 +1,8 @@
 import { Controller, Post, Body, Res } from '@nestjs/common';
 import { Response } from 'express';
-import { RegisterUserDto } from './dto/user.dto';
+import { LoginUserDto, RegisterUserDto } from './dto/user.dto';
 import { UserService } from './user.services';
-import { IDataForToken, IPayload } from './interfaces';
+import { IDataForToken } from './interfaces';
 import { AuthService } from '../auth/auth.services';
 
 @Controller('user')
@@ -29,5 +29,24 @@ export class UserController {
 		const token = this.authServices.signToken({ id });
 
 		return res.status(201).json({ msg: 'USER REGISTERED', data: token });
+	}
+
+	//correctData -> WrongEmail? -> WrongPassword? -> OK
+	@Post('login')
+	async login(
+		@Body() loginUserDto: LoginUserDto,
+		@Res() res: Response
+	): Promise<Response> {
+		const { id, err }: IDataForToken = await this.userServices.login(
+			loginUserDto
+		);
+
+		if (err) {
+			return res.status(err.statusCode).json({ msg: err.msg });
+		}
+
+		const token = this.authServices.signToken({ id });
+
+		return res.status(200).json({ msg: 'SUCCESS', data: token });
 	}
 }

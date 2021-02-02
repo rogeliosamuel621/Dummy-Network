@@ -42,7 +42,6 @@ export class UserService {
 		}
 	}
 
-	//correctData -> WrongEmail? -> WrongPassword? -> OK
 	async login(user: LoginUserDto): Promise<IDataForToken> {
 		try {
 			const isUser = await this.userModel.findOne(
@@ -52,7 +51,7 @@ export class UserService {
 				'password _id'
 			);
 
-			if (isUser) {
+			if (!isUser) {
 				return {
 					err: { msg: 'WRONG EMAIL', statusCode: 401 },
 					id: null,
