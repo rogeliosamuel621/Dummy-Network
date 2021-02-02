@@ -61,4 +61,51 @@ describe('Register endpoint', () => {
 		expect(res.status).toBe(400);
 		expect(res.body.msg).toBe('EMAIL ALREADY TAKEN');
 	});
+
+	test('WRONG DATA SCHEMA', async () => {
+		const mockUser = new FakeUser('admingmail.com', '', '123456');
+
+		const res = await req(app.getHttpServer())
+			.post('/user/login')
+			.send(mockUser);
+
+		expect(res.status).toBe(400);
+		expect(res.body.message).toContain(
+			'the [email] is not an email, [admingmail.com]'
+		);
+	});
+
+	test('WRONG EMAIL', async () => {
+		const mockUser = new FakeUser('admin7@gmail.com', '', '123456');
+
+		const res = await req(app.getHttpServer())
+			.post('/user/login')
+			.send(mockUser);
+
+		expect(res.status).toBe(401);
+		expect(res.body.msg).toBe('WRONG EMAIL');
+	});
+
+	test('WRONG PASSWORD', async () => {
+		const mockUser = new FakeUser('admin@gmail.com', '', '1234567');
+
+		const res = await req(app.getHttpServer())
+			.post('/user/login')
+			.send(mockUser);
+
+		expect(res.status).toBe(401);
+		expect(res.body.msg).toBe('PASSWORDS DOES NOT MATCH');
+	});
+
+	test('OK', async () => {
+		const mockUser = new FakeUser('admin@gmail.com', '', '123456');
+
+		const res = await req(app.getHttpServer())
+			.post('/user/login')
+			.send(mockUser);
+		console.log(res.body, ' ## ', mockUser);
+
+		expect(res.status).toBe(200);
+		expect(res.body.msg).toBe('SUCCESS');
+	});
 });
