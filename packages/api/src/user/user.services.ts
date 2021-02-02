@@ -37,4 +37,7 @@ export class UserService {
 			};
 		}
 	}
+
+	//correctData -> WrongEmail? -> WrongPassword? -> OK
+	// async login(user: LoginUserDto): IDataForToken {}
 }
