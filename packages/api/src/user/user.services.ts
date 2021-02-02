@@ -1,14 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { RegisterUserDto } from './dto/user.dto';
+import { RegisterUserDto, LoginUserDto } from './dto/user.dto';
 import { User, UserDocument } from './schemas/user.schema';
 import * as argon from 'argon2';
 import { IDataForToken } from './interfaces/';
+import { AuthService } from '../auth/auth.services';
 
 @Injectable()
 export class UserService {
-	constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
+	constructor(
+		@InjectModel(User.name) private userModel: Model<UserDocument>,
+		private authServices: AuthService
+	) {}
 
 	async register(user: RegisterUserDto): Promise<IDataForToken> {
 		try {
@@ -17,7 +21,7 @@ export class UserService {
 			});
 			user.password = hash;
 
-			const newUser = new this.userModel(user);
+			const newUser: UserDocument = new this.userModel(user);
 			await newUser.save();
 
 			newUser.password = undefined;
@@ -39,5 +43,44 @@ export class UserService {
 	}
 
 	//correctData -> WrongEmail? -> WrongPassword? -> OK
-	// async login(user: LoginUserDto): IDataForToken {}
+	async login(user: LoginUserDto): Promise<IDataForToken> {
+		try {
+			const isUser = await this.userModel.findOne(
+				{
+					email: user.email,
+				},
+				'password _id'
+			);
+
+			if (isUser) {
+				return {
+					err: { msg: 'WRONG EMAIL', statusCode: 401 },
+					id: null,
+				};
+			}
+
+			const passwordsMatch: boolean = await this.authServices.verifyPassword(
+				isUser.password,
+				user.password
+			);
+
+			if (!passwordsMatch) {
+				return {
+					err: { msg: 'PASSWORDS DOES NOT MATCH', statusCode: 401 },
+					id: null,
+				};
+			}
+
+			return {
+				err: null,
+				id: isUser._id,
+			};
+		} catch (e) {
+			console.log(e);
+			return {
+				err: { msg: 'SOMETHING WERE WRONG', statusCode: 500 },
+				id: null,
+			};
+		}
+	}
 }
