@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { UserModule } from './user/user.module';
+import { PostModule } from './post/post.module';
 import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
@@ -8,6 +9,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 			useCreateIndex: true,
 		}),
 		UserModule,
+		PostModule,
 	],
 	controllers: [],
 	providers: [],
