@@ -7,7 +7,9 @@
     "dev": "nest start --watch",
     "start": "node dist/main",
     "build": "npm run pre:build && nest build",
-    "pre:build": "rimraf dist"
+    "pre:build": "rimraf dist",
+    "test": "jest"
+
   },
   "repository": {
     "type": "git",

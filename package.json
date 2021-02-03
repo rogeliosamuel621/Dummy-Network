@@ -6,7 +6,8 @@
   "scripts": {
     "build:app": "lerna run build",
     "start:app": "lerna run start",
-    "dev:app": "lerna run dev"
+    "dev:app": "lerna run dev",
+    "test:api": "cd packages/api && npm run test"
   },
   "repository": {
     "type": "git",
