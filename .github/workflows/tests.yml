@@ -10,7 +10,7 @@ on:
     branches: [main, dev]
 
 jobs:
-  tests in ubuntu-latest:
+  tests in ubuntu latest:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,7 +22,7 @@ jobs:
       - name: run api tests
         run: npm run test:api
 
-  tests in windows-latest:
+  tests in windows latest:
     runs-on: windows-latest
 
     steps:
