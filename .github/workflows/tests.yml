@@ -10,21 +10,26 @@ on:
     branches: [main, dev]
 
 jobs:
-  tests:
+  tests in ubuntu-latest:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [10.x, 12.x, 14.x, 15.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
+
       - name: install dependencies
         run: cd packages/api && npm install
-      - name: run tests
+
+      - name: run api tests
+        run: npm run test:api
+
+  tests in windows-latest:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: install dependencies
+        run: cd packages/api && npm install
+
+      - name: run api tests
         run: npm run test:api
