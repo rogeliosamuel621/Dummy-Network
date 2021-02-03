@@ -22,7 +22,6 @@ module.exports = {
 			},
 			{
 				test: /\.svelte$/,
-				exclude: /node_modules/,
 				use: {
 					loader: 'svelte-loader',
 				},
@@ -31,10 +30,14 @@ module.exports = {
 				test: /\.css$/,
 				use: [MiniCssExtractPlugin.loader, 'css-loader'],
 			},
+			{
+				test: /\.(jpg|jpeg|png|svg)$/,
+				use: 'file-loader',
+			},
 		],
 	},
 	resolve: {
-		extensions: ['*', '.mjs', '.js', '.svelte'],
+		extensions: ['.mjs', '.js', '.svelte'],
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
