@@ -3,17 +3,20 @@ import * as jwt from 'jsonwebtoken';
 import { IPayload } from 'src/user/interfaces';
 import { argon2i, verify } from 'argon2';
 import { IDecoded } from '../middlewares/interfaces';
+import { JWT_SECRET, EXPIRES_IN } from '../config';
 
 @Injectable()
 export class AuthService {
 	signToken(payload: IPayload) {
-		const token: string = jwt.sign(payload, 'jwt-secret', { expiresIn: '3h' });
+		const token: string = jwt.sign(payload, JWT_SECRET, {
+			expiresIn: EXPIRES_IN,
+		});
 
 		return token;
 	}
 
 	verifyToken(token: string): IDecoded {
-		const decoded: IDecoded = jwt.verify(token, 'jwt-secret') as IDecoded;
+		const decoded: IDecoded = jwt.verify(token, JWT_SECRET) as IDecoded;
 
 		return decoded;
 	}
