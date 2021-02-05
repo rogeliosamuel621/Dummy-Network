@@ -1,9 +1,10 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Request, Response, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
 import { AuthService } from '../auth/auth.services';
 import { User, UserDocument } from '../user/schemas/user.schema';
+import { IDecoded, IReqUser } from './interfaces';
 
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
@@ -11,8 +12,8 @@ export class LoggerMiddleware implements NestMiddleware {
 		@InjectModel(User.name) private userModel: Model<UserDocument>,
 		private authServices: AuthService
 	) {}
-	use(req: Request, res: Response, next: NextFunction) {
-		const token = req.headers['authorization'];
+	async use(req: IReqUser, res: Response, next: NextFunction) {
+		const token = req.headers.authorization;
 
 		if (!token) {
 			return res.status(401).json({
@@ -22,11 +23,9 @@ export class LoggerMiddleware implements NestMiddleware {
 		}
 
 		try {
-			const decoded: any = this.authServices.verifyToken(token);
+			const decoded: IDecoded = this.authServices.verifyToken(token);
 
-			console.log(decoded);
-
-			const user = this.userModel.findById(decoded._id, '_id');
+			const user = await this.userModel.findById(decoded.id, '_id');
 
 			if (!user) {
 				return res.status(401).json({
@@ -35,10 +34,13 @@ export class LoggerMiddleware implements NestMiddleware {
 				});
 			}
 
-			// req.user = decoded as IDecoded;
+			req.user = decoded;
+			delete req.user.iat;
+			delete req.user.exp;
+
 			return next();
 		} catch (err) {
-			// MODE === 'dev' ? console.log(err) : null;
+			console.log(err);
 
 			return res.status(500).json({
 				statusCode: 500,

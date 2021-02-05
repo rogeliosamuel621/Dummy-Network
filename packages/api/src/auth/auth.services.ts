@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
 import { IPayload } from 'src/user/interfaces';
 import { argon2i, verify } from 'argon2';
+import { IDecoded } from '../middlewares/interfaces';
 
 @Injectable()
 export class AuthService {
@@ -11,8 +12,8 @@ export class AuthService {
 		return token;
 	}
 
-	verifyToken(token: string) {
-		const decoded = jwt.verify(token, 'jwt secret');
+	verifyToken(token: string): IDecoded {
+		const decoded: IDecoded = jwt.verify(token, 'jwt-secret') as IDecoded;
 
 		return decoded;
 	}
